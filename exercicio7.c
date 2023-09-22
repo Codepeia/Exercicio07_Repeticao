@@ -2,76 +2,84 @@
 
 main(){
 
-    char cabelo, olhos, sexo;
-    int contadorM = 0, contadorF = 0,contadorGeral = 0, contadorEspecifico = 0, idade;
+    char sexo, olhos, cabelos;
+    int totalHabitantes = 0, totalEspecifico = 0, totalM = 0, totalF = 0, idade, opcao;
     float salario, porcentagem;
 
+    //cadastrar um habitante em cada repeticao
     do{
-        contadorGeral++;
-        fflush(stdin);
-        //validacao do sexo
+        //contagem de cada habitante
+        //preencher e validar o campo sexo
+
         do{
-            printf("Digite o sexo (m / f): ");
+            fflush(stdin);
+            printf("\n Digite o sexo: (m ou f)  ");
             scanf("%c", &sexo);
+           if(sexo != 'm' && sexo != 'f'){
+                printf("\nOpcao invalida");
+            }
             if(sexo == 'm'){
-                contadorM++;
-            }else{
-                contadorF++;
+                totalM++;
+            }else if(sexo == 'f'){
+                totalF++;
             }
-            fflush(stdin);
-            if(sexo != 'm' && sexo != 'f'){
-               printf("\nopcao invalida. Digite novamente");     
-            }
+       
         }while(sexo != 'm' && sexo != 'f');
-      //validacao dos olhos
+
+        //preencher e validar o campo olhos
         do{
-            printf("Digite a cor dos olhos a, p, v, c: ");
+            fflush(stdin);
+            printf("Digite a cor dos olhos: a (azuis), v (verdes), c (castanhos), p (pretos)");
             scanf("%c", &olhos);
-            fflush(stdin);
-            if(olhos != 'a' && olhos != 'v' && olhos != 'c' && olhos != 'p'){
-               printf("\nopcao invalida. Digite novamente");     
+            if(olhos != 'a' && olhos != 'p' && olhos != 'c' && olhos != 'v'){
+                 printf("\nOpcao invalida");
             }
-        }while(olhos != 'a' && olhos != 'v' && olhos != 'c' && olhos != 'p');
-      //validacao dos cabelos
-        do{
-            printf("Digite a cor dos cabelos a, p, v, c: ");
-            scanf("%c", &cabelo);
-            fflush(stdin);
-            if(cabelo != 'r' && cabelo != 'l' && cabelo != 'c' && cabelo != 'p'){
-               printf("\nopcao invalida. Digite novamente");     
-            }
-        }while(cabelo != 'r' && cabelo != 'l' && cabelo != 'c' && cabelo != 'p');
+        }while(olhos != 'a' && olhos != 'p' && olhos != 'c' && olhos != 'v');
 
+            //preencher e validar o campo cabelos
         do{
-            printf("Digite a idade entre 10 e 100 ");
+            fflush(stdin);
+            printf("Digite a cor dos cabelos");
+            scanf("%c", &cabelos);
+            if(cabelos != 'l' && cabelos != 'c' && cabelos != 'p' && cabelos != 'r'){
+                printf("\nOpcao invalida");
+            }
+        }while(cabelos != 'l' && cabelos != 'c' && cabelos != 'p' && cabelos != 'r');
+
+            //preencher e validar o campo idade
+        do{
+            fflush(stdin);
+            printf("Digite a idade");
             scanf("%d", &idade);
-            fflush(stdin);
             if(idade < 10 || idade > 100){
-               printf("\nopcao invalida. Digite novamente");     
+                printf("\nOpcao invalida");
             }
-        }while(idade != -1 && (idade < 10 || idade > 100));
+        }while(idade < 10 || idade > 100);
 
+        //preencher e validar o campo salario
         do{
-            printf("Digite o salario ");
-            scanf("%f", &salario);
             fflush(stdin);
+            printf("Digite o salario");
+            scanf("%f", &salario);
             if(salario < 0){
-               printf("\nopcao invalida. Digite novamente");     
+                printf("\nOpcao invalida");
             }
         }while(salario < 0);
 
-        if(sexo == 'f' && cabelo == 'c' && olhos == 'c' && (idade > 18 && idade < 35)){
-            contadorEspecifico++;
+        if(sexo == 'f' && olhos == 'c' && cabelos == 'c' && (idade > 18 && idade < 35)){
+            totalEspecifico++;
         }
 
-        printf("Digite -1 para ou 0 para continuar");
-        scanf("%d", &idade);
-    }while(idade != -1);
+        totalHabitantes++;
 
-    porcentagem = (float)contadorEspecifico * 100 / contadorGeral;
+        printf("Deseja cadastrar um novo habitante: 1 SIM -1 NAO");
+        scanf("%d",&opcao);
+    }while(opcao != -1);
 
-    printf("\nTotal de cadastros%d", contadorGeral);
-    printf("\nTotal cadastro homens %d", contadorM);
-    printf("\nTotal cadastro mulheres %d", contadorF);
-    printf("\nPorcentagem mulheres com caracteristicas especificas %f", porcentagem);
+    porcentagem =(float)totalEspecifico/totalHabitantes*100;
+
+    printf("\nTotal de habitantes cadastrados: %d", totalHabitantes);
+    printf("\nTotal de homens cadastrados: %d", totalM);
+    printf("\nTotal de mulheres cadastrados: %d", totalF);
+    printf("\nPorcentagem de Pessoas com caracteristicas especificas: %.2f", porcentagem);
 }
